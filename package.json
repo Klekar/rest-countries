@@ -1,0 +1,25 @@
+{
+  "name": "rest-countries",
+  "version": "1.0.0",
+  "description": "",
+  "browser": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klekar/rest-countries.git"
+  },
+  "author": "Karel Klečka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Klekar/rest-countries/issues"
+  },
+  "homepage": "https://github.com/Klekar/rest-countries#readme",
+  "devDependencies": {
+    "grunt": "^1.3.0"
+  },
+  "dependencies": {
+    "react": "^17.0.1"
+  }
+}
