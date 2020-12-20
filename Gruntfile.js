@@ -1,17 +1,14 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         less: {
-            development: {
-                options: {
-                    paths: ["src/less"]
-                },
+            general: {
                 files: {
                     'public/styles.css': 'src/less/*.less'
                 }
             }
         },
         cssmin: {
-            target: {
+            release: {
                 files: [{
                     expand: true,
                     cwd: 'public',
@@ -25,11 +22,33 @@ module.exports = function(grunt) {
             development: {
                 options: {
                     presets: ['@babel/preset-react', '@babel/preset-env'],
-                    sourceMaps: true,
-                    minified: false
+                    sourceMaps: true
                 },
                 files: {
-                    'public/script.js': 'src/script/*.js'
+                    'public/script.js': ['src/script/*.js', '!src/script/main.js', '!src/script/main.js'] 
+                }
+            },
+            release: {
+                options: {
+                    presets: ['@babel/preset-react', '@babel/preset-env']
+                }
+                ,
+                files: {
+                    'public/script.js': ['src/script/*.js', '!src/script/main.js', '!src/script/main.js'] 
+                }
+            }
+        },
+        browserify: {
+            general: {
+                files: {
+                    'public/script.js': 'public/script.js'
+                }
+            }
+        },
+        uglify: {
+            release: {
+                files: {
+                    'public/script.js': 'public/script.js'
                 }
             }
         },
@@ -41,7 +60,7 @@ module.exports = function(grunt) {
             }
         },
         htmlbuild: {
-            development: {
+            general: {
                 src: 'src/*.html',
                 dest: 'public/',
                 options: {
@@ -65,7 +84,7 @@ module.exports = function(grunt) {
             },
             script: {
                 files: 'src/script/*.js',
-                tasks: ['babel']
+                tasks: ['make-js']
             },
             html: {
                 files: 'src/*.html',
@@ -79,6 +98,9 @@ module.exports = function(grunt) {
             }
         }
     });
+    let isRelease = grunt.option('isRelease') || false;
+    let env = isRelease ? "release" : "development";
+
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -86,8 +108,25 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('make-css', ['less', 'cssmin']);
-    grunt.registerTask('build', ['clean:clean', 'make-css', 'babel', 'copy', 'htmlbuild', 'clean:post_build']);
+    //grunt.registerTask('make-css', ['less', 'cssmin']);
+    grunt.registerTask('make-css', function() {
+        grunt.task.run('less');
+        if (isRelease) {
+            grunt.task.run('cssmin');
+        }
+    });
+    grunt.registerTask('make-js', ['babel', 'browserify', 'uglify']);
+    grunt.registerTask('make-js', function() {
+        grunt.task.run(['babel:' + env, 'browserify']);
+        if (isRelease) {
+            grunt.task.run('uglify:' + env);
+        }
+    });
+    grunt.registerTask('build', function () {
+        grunt.task.run(['clean:clean', 'make-css:' + isRelease, 'make-js:' + isRelease, 'copy:libs', 'htmlbuild:general']);
+    });
     grunt.registerTask('default', 'build');
 };
