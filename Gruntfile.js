@@ -18,6 +18,15 @@ module.exports = function(grunt) {
                 }]
             }
         },
+        concat: {
+            options: {
+                separator: ';'
+            },
+            script: {
+                dest: 'public/script.js',
+                src: ['src/script/imports.js', 'src/script/*.js', '!src/script/main.js', 'src/script/main.js']
+            }
+        },
         babel: {
             development: {
                 options: {
@@ -25,17 +34,17 @@ module.exports = function(grunt) {
                     sourceMaps: true
                 },
                 files: {
-                    'public/script.js': ['src/script/*.js', '!src/script/main.js', '!src/script/main.js'] 
-                }
+                    'public/script.js': 'public/script.js'
+                },
+                
             },
-            release: {
+            release: {  
                 options: {
                     presets: ['@babel/preset-react', '@babel/preset-env']
-                }
-                ,
+                },
                 files: {
-                    'public/script.js': ['src/script/*.js', '!src/script/main.js', '!src/script/main.js'] 
-                }
+                    'public/script.js': 'public/script.js'
+                },
             }
         },
         browserify: {
@@ -106,20 +115,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-html-build');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    //grunt.registerTask('make-css', ['less', 'cssmin']);
     grunt.registerTask('make-css', function() {
         grunt.task.run('less');
         if (isRelease) {
             grunt.task.run('cssmin');
         }
     });
-    grunt.registerTask('make-js', ['babel', 'browserify', 'uglify']);
     grunt.registerTask('make-js', function() {
+        grunt.task.run('concat:script');
         grunt.task.run(['babel:' + env, 'browserify']);
         if (isRelease) {
             grunt.task.run('uglify:' + env);
