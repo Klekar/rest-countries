@@ -8,7 +8,7 @@ class CountriesList extends React.Component {
             
             //ReactDOM.render(<CountryCard data={result[0]}/>);
             return (
-                <li key={country.name} className="country-card">
+                <li key={country.name} className="country-card content-element">
                     <CountryCardFlag data={country}/>
                     <CountryCardData data={country}/>
                 </li>)

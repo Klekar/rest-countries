@@ -14,8 +14,6 @@
     font-size: 12px;
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 300;
-    background-color: @very-dark-blue-b;
-    color: @white;
 }
 
 /*----------------------COMMON ELEMENT STYLES---------------------*/
@@ -47,44 +45,89 @@ h1 {
     box-sizing: border-box;
 }
 
-::-webkit-scrollbar {
-    width: @scrollbar-width;
-}
-
-::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-button {
-    display: none;
-}
- 
-::-webkit-scrollbar-thumb {
-    background-color: @dark-gray;
-    border-radius: @scrollbar-width / 2;
-    transition: background-color 0.4s ease-in-out;
-
-    &:hover {
-        background-color: @very-light-gray; 
-    }
+button {
+    background: none;
+    font: unset;
+    border: none;
+    cursor: pointer;
 }
 
 /*----------------------COMMON PAGES STYLES----------------------*/
 
+body {
+    --text-clr: @very-dark-blue-t;
+    --background-clr: @very-light-gray;
+    --elements-background: @white;
+    --input-clr: @dark-gray;
+
+    background-color: var(--background-clr);
+    color: var(--text-clr);
+
+    &.dark-mode {
+        --text-clr: @white;
+        --background-clr: @very-dark-blue-b;
+        --elements-background: @dark-blue;
+        --input-clr: @white;
+    }
+}
+
+.content-element {
+    background-color: var(--elements-background);
+    box-shadow: 0 0 0.5rem #00000033;
+}
+
 header {
-    background-color: @dark-blue;
     height: @header-height;
     position: relative;
     width: 100%;
-
-    >* {
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+    overflow: hidden;
 
     >.width-container {
         padding: 1rem;
+        height: 100%;
+
+        >* {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     }
     
     h1 {
         font-weight: 600;
+        display: inline-block;
+    }
+
+    #dark-mode-switch {
+        float: right;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-clr);
+        border: 1px solid transparent;
+        border-radius: 1em;
+        transition: border 0.5s ease-in-out;
+
+        &:hover {
+            border-color: var(--text-clr);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        >* {
+            float: left;
+        }
+
+        svg {
+            stroke-width: 0.17em;
+            margin: 0.17em 0.3em 0 0;
+            stroke: var(--text-clr);
+            fill: @white;
+            height: 1em;
+            position: relative;
+            overflow: visible;
+        }
     }
 }
 
@@ -92,6 +135,27 @@ main {
     height: calc(100% - @header-height);
     overflow-y: scroll;
     overflow-x: hidden;
+
+    ::-webkit-scrollbar {
+        width: @scrollbar-width;
+    }
+    
+    ::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-button {
+        display: none;
+    }
+     
+    ::-webkit-scrollbar-thumb {
+        .content-element;
+        background-color: var(--elements-background);
+        outline: var(--input-clr);
+        border-radius: @scrollbar-width / 2;
+        transition: background-color 0.4s ease-in-out;
+    
+        &:hover {
+            background-color: var(--input-clr);
+            outline: var(--elements-background);
+        }
+    }
 }
 
 /*----------------------LIST PAGE STYLES-------------------------*/
@@ -100,7 +164,7 @@ ul#countries-list {
     display: flex;
     width: 100%;
     flex-flow: row wrap;
-    align-items: flex-end;
+    align-items: baseline;
     /*justify-content: styled at media queryies*/
 
     /*&:after {
@@ -112,7 +176,6 @@ ul#countries-list {
 li.country-card {
     width: 100%;
     border-radius: 0.6rem;
-    background-color: @dark-blue;
     margin: 1rem 1rem;
     overflow: hidden;
 
@@ -127,6 +190,7 @@ li.country-card {
         object-position: top;
         max-height: 18rem;
         overflow: hidden;
+        box-shadow: 0 0 0.3rem #00000033;
     }
 
     ul.country-card-data {

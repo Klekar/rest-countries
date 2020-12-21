@@ -1,5 +1,12 @@
 $(function() {
-    console.log("script started");
+    /*--------------DARK MODE SWITCH HANDLING---------------- */
+
+    $("#dark-mode-switch").on("click", function() {
+        $("body").toggleClass("dark-mode");
+    });
+
+    /*------------------LIST DATA LOADING---------------------*/
+
     $.ajax({
         url: "https://restcountries.eu/rest/v2/all",
         type: "GET",
