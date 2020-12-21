@@ -1,3 +1,237 @@
-html {
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;0,800;1,300&display=swap');
+
+@dark-blue: hsl(209, 23%, 22%);
+@very-dark-blue-b: hsl(207, 26%, 17%);
+@very-dark-blue-t: hsl(200, 15%, 8%);
+@dark-gray: hsl(0, 0%, 52%);
+@very-light-gray: hsl(0, 0%, 98%);
+@white: hsl(0, 0%, 100%);
+
+@scrollbar-width: 0.7rem;
+@header-height: 5rem;
+
+:root {
+    font-size: 12px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 300;
+    background-color: @very-dark-blue-b;
+    color: @white;
+}
+
+/*----------------------COMMON ELEMENT STYLES---------------------*/
+
+html, body{
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+}
+
+.width-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: @scrollbar-width;
+}
+
+::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-button {
+    display: none;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: @dark-gray;
+    border-radius: @scrollbar-width / 2;
+    transition: background-color 0.4s ease-in-out;
+
+    &:hover {
+        background-color: @very-light-gray; 
+    }
+}
+
+/*----------------------COMMON PAGES STYLES----------------------*/
+
+header {
+    background-color: @dark-blue;
+    height: @header-height;
+    position: relative;
+    width: 100%;
+
+    >* {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    >.width-container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-weight: 600;
+    }
+}
+
+main {
+    height: calc(100% - @header-height);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/*----------------------LIST PAGE STYLES-------------------------*/
+
+ul#countries-list {
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    /*justify-content: styled at media queryies*/
+
+    /*&:after {
+        content: "";
+        flex: auto;
+    }*/
+}
+
+li.country-card {
+    width: 100%;
+    border-radius: 0.6rem;
+    background-color: @dark-blue;
+    margin: 1rem 1rem;
+    overflow: hidden;
+
+    &.last-row-non-first {
+        justify-self: start;
+        margin-left: 0;
+    }
+
+    >img {
+        width: 100%;
+        object-fit: contain;
+        object-position: top;
+        max-height: 18rem;
+        overflow: hidden;
+    }
+
+    ul.country-card-data {
+        padding: 1rem;
+
+        span.label {
+            font-weight: 600;
+
+            &:after {
+                content: ': ';
+            }
+        }
+    }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    :root {
+        font-size: 10px;
+    }
+
+    .width-container {
+        width:  100%;
+    }
+
+    ul#countries-list {
+        justify-content: space-around;
+    }
+
+	li.country-card {
+        max-width: 250px;
+        width: 90%;
+        min-width: 100px;
+        
+        &.last-row-non-first {
+            margin-left: 0;
+        }
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .width-container {
+        width:  600px;
+    }
+
+    ul#countries-list {
+        justify-content: space-around;
+    }
+
+	li.country-card {
+        max-width: 300px;
+        
+        &.last-row-non-first {
+            margin-left: 0;
+        }
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .width-container {
+        width:  768px;
+    }
+
+    ul#countries-list {
+        justify-content: space-between;
+    }
+
+	li.country-card {
+        width: 48%;
+        
+        &.last-row-non-first {
+            margin-left: 0;
+        }
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .width-container {
+        width:  992px;
+    }
+
+	li.country-card {
+        width: 30%;
+        
+        &.last-row-non-first {
+            margin-left: 5%;
+        }
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .width-container {
+        width:  1200px;
+    }
+
+	li.country-card {
+        width: 22%;
+        
+        &.last-row-non-first {
+            margin-left: 4%;
+        }
+    }
 }
