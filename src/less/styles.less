@@ -136,15 +136,15 @@ main {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    ::-webkit-scrollbar {
+    &::-webkit-scrollbar {
         width: @scrollbar-width;
     }
     
-    ::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-button {
+    &::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece, ::-webkit-scrollbar-button {
         display: none;
     }
      
-    ::-webkit-scrollbar-thumb {
+    &::-webkit-scrollbar-thumb {
         .content-element;
         background-color: var(--elements-background);
         outline: var(--input-clr);
@@ -166,11 +166,6 @@ ul#countries-list {
     flex-flow: row wrap;
     align-items: baseline;
     /*justify-content: styled at media queryies*/
-
-    /*&:after {
-        content: "";
-        flex: auto;
-    }*/
 }
 
 li.country-card {
@@ -202,6 +197,16 @@ li.country-card {
             &:after {
                 content: ': ';
             }
+        }
+    }
+}
+
+// -------------------------RESPONSIVNESS--------------------------------
+
+@media only screen and (max-width: 300px) {
+    #dark-mode-switch {
+        .button-text {
+            display: none;
         }
     }
 }
