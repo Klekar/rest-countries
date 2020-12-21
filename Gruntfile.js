@@ -63,9 +63,10 @@ module.exports = function(grunt) {
         },
         copy: {
             libs: {
+                cwd: 'static-files',
                 expand: true,
-                src: 'lib/**',
-                dest: 'public'
+                src: '**',
+                dest: 'public/'
             }
         },
         htmlbuild: {
@@ -82,7 +83,11 @@ module.exports = function(grunt) {
                     },
                     styles: {
                         styles: 'public/styles.css'
+                    },
+                    sections: {
+                        moon_icon: 'public/moon.svg'
                     }
+
                 }
             }
         },
