@@ -10,7 +10,7 @@ $(function() {
     });
 
     function populateList(result) {
-        let domContainer = $('main')[0];
+        let domContainer = $('#main-content-box')[0];
         ReactDOM.render(<CountriesList data={result}/>, domContainer);
     };
 });
