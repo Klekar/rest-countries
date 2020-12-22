@@ -85,7 +85,7 @@ module.exports = function(grunt) {
                         styles: 'public/styles.css'
                     },
                     sections: {
-                        moon_icon: 'public/moon.svg'
+                        moon_icon: 'public/icons/moon.svg'
                     }
 
                 }
@@ -103,6 +103,10 @@ module.exports = function(grunt) {
             html: {
                 files: 'src/*.html',
                 tasks: ['htmlbuild']
+            },
+            static_files: {
+                files: 'static-files/**/*',
+                tasks: ['copy']
             }
         },
         clean: {
