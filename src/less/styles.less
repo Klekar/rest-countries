@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;0,800;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
 
 @dark-blue: hsl(209, 23%, 22%);
 @very-dark-blue-b: hsl(207, 26%, 17%);
@@ -159,6 +159,108 @@ main {
 }
 
 /*----------------------LIST PAGE STYLES-------------------------*/
+
+main>.filter-container {
+    padding: 1rem 1rem;
+    margin-top: 1rem;
+
+    >* {
+        height: 4rem;
+        display: inline-block;
+        border: 1px solid transparent;
+        border-radius: 0.4rem;
+        color: var(--input-clr);
+        font: inherit;
+        font-weight: 300;
+
+        transition: box-shadow 0.4s ease-in-out;
+
+        &:focus, &:focus-within {
+            outline: none;
+            box-shadow: 0 0 0.65rem #00000088;
+            /*border-color: @dark-gray;*/
+        }
+    }
+}
+    
+#country-name-input {
+    min-width: 22rem;
+    width: 30%;
+    max-width: 40rem;
+    background-image: url('icons/magnifier-gray.svg');
+    background-position: 2rem 1.3rem;
+    background-size: 1.4rem;
+    background-repeat: no-repeat;
+    padding-left: 5rem;
+
+    &::placeholder {
+        color: var(--input-clr);
+    }
+}
+.dark-mode #country-name-input {
+    background-image: url(icons/magnifier-white.svg);
+}
+
+@select-name: ~'region-select';
+@select-class: ~'.@{select-name}';
+
+#@{select-name}-holder {
+    width: 14rem;
+    float: right;
+    cursor: pointer;
+
+    @{select-class}-container {
+        height: 100%;
+        cursor: inherit;
+
+        @{select-class}__control {
+            background: inherit;
+            height: 100%;
+        
+            outline: none;
+            box-shadow: none;
+            border: 0;
+
+            @{select-class}__value-container {
+                background-attachment: fixed;
+
+                @{select-class}__single-value {
+                    color: var(--input-clr);
+                }
+
+                @{select-class}__placeholder {
+                    color:var(--input-clr);
+                }
+            }
+
+            @{select-class}__indicators {
+                @{select-class}__indicator-separator {
+                    display: none;
+                }
+            }
+        }
+        
+        @{select-class}__menu {
+            background-color: var(--elements-background);
+            @{select-class}__menu-list {
+                @{select-class}__option {
+                    height: 3rem;
+                    line-height: 3rem;
+                    padding: 0 1rem;
+
+                    &--is-focused {
+                        background-color: @dark-gray;
+                        color: var(--background-clr);
+                    }
+                    &--is-selected {
+                        background-color: var(--text-clr);
+                        color: var(--elements-background);
+                    }
+                }
+            }
+        }
+    }
+}
 
 ul#countries-list {
     display: flex;

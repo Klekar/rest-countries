@@ -1,8 +1,10 @@
+const { NonceProvider } = require("react-select");
+
 $(function() {
     const countryNameInputSelector = "#country-name-input";
-    const regionInputSelector = "#region-filter";
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
     var resultData;
+    var region;
     /*--------------DARK MODE SWITCH HANDLING---------------- */
 
     $("#dark-mode-switch").on("click", function() {
@@ -28,7 +30,6 @@ $(function() {
 
     function displayResult() {
         var result = resultData;
-        var region = $(regionInputSelector).val();
         var nameString = $(countryNameInputSelector).val();
         if (region) 
         {
@@ -43,12 +44,11 @@ $(function() {
             })
         }
         
-        let domContainer = $('#main-content-box')[0];
+        var domContainer = $('#main-content-box')[0];
         ReactDOM.render(<CountriesList data={result}/>, domContainer);
     };
 
     /*-------------------INPUT FILTRING---------------------*/
-    $(countryNameInputSelector + ", " + regionInputSelector).change(displayResult);
 
     var inputtingCheckTimeout = null;
     $(countryNameInputSelector).on("paste keyup", function () {
@@ -57,11 +57,26 @@ $(function() {
     });
 
     function populateCountrySelector() {
+        var regionsOptions = [];
         regions.forEach(region => {
-            $(regionInputSelector).append($('<option>', {
-                value: region,
-                text: region
-            }));
+            regionsOptions.push({value: region, label: region});
         });
+
+        var domContainer = $('#region-select-holder')[0];
+        ReactDOM.render(<Select options={regionsOptions}
+                                isClearable={true}
+                                isSearchable={false}
+                                name="region-select"
+                                className="region-select-container"
+                                classNamePrefix="region-select"
+                                placeholder="Filter by Region"
+                                onChange={handleSelectChange}
+                                />,
+                        domContainer);
+
+        function handleSelectChange(selectedOption) {
+            region = selectedOption?.value;
+            displayResult();
+        }
     }
 });
