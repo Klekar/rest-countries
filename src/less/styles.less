@@ -173,8 +173,6 @@ main>.filter-container {
         font: inherit;
         font-weight: 300;
 
-        transition: box-shadow 0.4s ease-in-out;
-
         &:focus, &:focus-within {
             outline: none;
             box-shadow: 0 0 0.65rem #00000088;
@@ -188,10 +186,17 @@ main>.filter-container {
     width: 30%;
     max-width: 40rem;
     background-image: url('icons/magnifier-gray.svg');
-    background-position: 2rem 1.3rem;
-    background-size: 1.4rem;
+    background-position: 2rem center;
+    background-size: 1.4rem 1.4rem;
     background-repeat: no-repeat;
     padding-left: 5rem;
+    @bg-transition-f: 100ms ease-out;
+    transition: box-shadow 0.4s ease-in-out, background-position @bg-transition-f, background-size @bg-transition-f;
+
+    &:focus {
+        background-size: 1.6rem 1.6rem;
+        background-position: 1.9rem center;
+    }
 
     &::placeholder {
         color: var(--input-clr);
@@ -208,12 +213,14 @@ main>.filter-container {
     width: 14rem;
     float: right;
     cursor: pointer;
+    transition: box-shadow 0.4s ease-in-out;
 
     @{select-class}-container {
         height: 100%;
         cursor: inherit;
 
         @{select-class}__control {
+            cursor: inherit;
             background: inherit;
             height: 100%;
         
@@ -223,6 +230,7 @@ main>.filter-container {
 
             @{select-class}__value-container {
                 background-attachment: fixed;
+                cursor: inherit;
 
                 @{select-class}__single-value {
                     color: var(--input-clr);
@@ -282,7 +290,7 @@ li.country-card {
     }
 
     >img {
-        width: 100%;
+        width: calc(100% + 1px); //fix of some flags being rendered 1px short on some resolutions
         object-fit: contain;
         object-position: top;
         max-height: 18rem;
