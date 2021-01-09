@@ -9,7 +9,7 @@ class CountryDetail extends React.Component {
 
     render() {
         return (
-            <div id="country-detail" className="width-container">
+            <div id="country-detail">
                 <div id="detail-controls">
                     <button onClick={this.backBtnClicked} className="back-btn content-element clickable">
                         <span className="just-arrow">←</span> Back
