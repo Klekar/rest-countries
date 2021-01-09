@@ -114,6 +114,9 @@ class CountriesList extends React.Component {
                     </div>
                     <ul id="countries-list">
                         {r}
+                        <li class="list-filler country-card"></li>
+                        <li class="list-filler country-card"></li>
+                        <li class="list-filler country-card"></li>
                     </ul>
                 </div>
             )
