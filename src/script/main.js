@@ -29,7 +29,6 @@ $(function() {
     /*--------------DARK MODE SWITCH HANDLING----------------*/
 
     $("#dark-mode-switch").on("click", function() {
-        toggleDarkMode();
         $("body").toggleClass("dark-mode");
     });
 });
