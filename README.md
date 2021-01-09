@@ -1,4 +1,18 @@
-# Frontend Mentor - REST Countries API with color theme switcher
+# REST Countries API with color theme switcher made with React
+
+## Intro
+
+Thans for checking out my solution to this challange. ANY feedback is welcome.
+
+## Possible improvments
+
+Features that I thought could be cool but for some reasons decided to not implement.
+
+- Load or display the later parts of the list when it's necessary (scrolled to it). (I plan on doing some research on this and how it affects the performance so if someone could provide me some reading materials about that I would be grateful.)
+- Lazy load flags
+- Save dark mode state to cookie
+
+# Frontend Mentor - REST Countries API with color theme switcher (original challange README.md)
 
 ![Design preview for the REST Countries API with color theme switcher coding challenge](./design/desktop-preview.jpg)
 
