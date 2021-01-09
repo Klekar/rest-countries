@@ -33,6 +33,10 @@ $(function() {
     });
 });
 
+function formatPopulation(number) {
+    return new Intl.NumberFormat('en-US').format(number);
+}
+
 /*-------------------RENDERING FUNCTIONS--------------------*/
 
 function renderDetail(countryName) {

@@ -57,7 +57,7 @@ class CountryDetailData extends React.Component {
                         <dl>
                             <div className="data-1">
                                 <dt className="label">Native Name</dt><dd>{this.state.data.nativeName}</dd>
-                                <dt className="label">Population</dt><dd>{this.state.data.population}</dd>
+                                <dt className="label">Population</dt><dd>{formatPopulation(this.state.data.population)}</dd>
                                 <dt className="label">Region</dt><dd>{this.state.data.region}</dd>
                                 <dt className="label">Sub Region</dt><dd>{this.state.data.subregion}</dd>
                                 <dt className="label">Capital</dt><dd>{this.state.data.capital}</dd>
