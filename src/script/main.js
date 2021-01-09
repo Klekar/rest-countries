@@ -1,82 +1,50 @@
 const { NonceProvider } = require("react-select");
+var mainContentContainer;
 
 $(function() {
-    const countryNameInputSelector = "#country-name-input";
-    const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-    var resultData;
-    var region;
-    /*--------------DARK MODE SWITCH HANDLING---------------- */
+    mainContentContainer = $('#main-content-box')[0];
+    renderPage();
+
+    $(".back-btn").on("click", function () {
+        window.history.back();
+    });
+
+    $(window).on("popstate", renderPage);
+
+    $("#main-title").on("click", function() {
+        if (window.history.state === null) return;
+        window.history.pushState(null, "Where in the world?", location.pathname);
+        renderList();
+    });
+
+    function renderPage() {
+        if (window.history.state === null) {
+            renderList();
+        }
+        else if (window.history.state.type == "country-detail") {
+            renderDetail(window.history.state.countryName);
+        }
+    }
+
+    /*--------------DARK MODE SWITCH HANDLING----------------*/
 
     $("#dark-mode-switch").on("click", function() {
+        toggleDarkMode();
         $("body").toggleClass("dark-mode");
     });
-
-    /*------------------LIST DATA LOADING---------------------*/
-
-    $.ajax({
-        url: "https://restcountries.eu/rest/v2/all",
-        type: "GET",
-        success: resultSuccess,
-        error: function (error) {
-            console.log(error);
-        }
-    });
-
-    function resultSuccess(result) {
-        resultData = result;
-        displayResult();
-        populateCountrySelector();
-    }
-
-    function displayResult() {
-        var result = resultData;
-        var nameString = $(countryNameInputSelector).val();
-        if (region) 
-        {
-            result = $.grep(result, function (n) {
-                return n.region === region;
-            })
-        }
-        if (nameString)
-        {
-            result = $.grep(result, function (n) {
-                return ~n.name.toLowerCase().indexOf(nameString.toLowerCase());
-            })
-        }
-        
-        var domContainer = $('#main-content-box')[0];
-        ReactDOM.render(<CountriesList data={result}/>, domContainer);
-    };
-
-    /*-------------------INPUT FILTRING---------------------*/
-
-    var inputtingCheckTimeout = null;
-    $(countryNameInputSelector).on("paste keyup", function () {
-        window.clearTimeout(inputtingCheckTimeout);
-        inputtingCheckTimeout = window.setTimeout(displayResult, 650);
-    });
-
-    function populateCountrySelector() {
-        var regionsOptions = [];
-        regions.forEach(region => {
-            regionsOptions.push({value: region, label: region});
-        });
-
-        var domContainer = $('#region-select-holder')[0];
-        ReactDOM.render(<Select options={regionsOptions}
-                                isClearable={true}
-                                isSearchable={false}
-                                name="region-select"
-                                className="region-select-container"
-                                classNamePrefix="region-select"
-                                placeholder="Filter by Region"
-                                onChange={handleSelectChange}
-                                />,
-                        domContainer);
-
-        function handleSelectChange(selectedOption) {
-            region = selectedOption?.value;
-            displayResult();
-        }
-    }
 });
+
+/*-------------------RENDERING FUNCTIONS--------------------*/
+
+function renderDetail(countryName) {
+    ReactDOM.render(<CountryDetail key={countryName} name={countryName}/>, mainContentContainer);
+}
+
+function goToDetail(countryName) {
+    history.pushState({type: "country-detail", "countryName": countryName}, countryName, "?" + countryName);
+    renderDetail(countryName);
+}
+
+function renderList() {
+    ReactDOM.render(<CountriesList key="list"/>, mainContentContainer);
+}

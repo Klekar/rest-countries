@@ -9,6 +9,8 @@
 
 @scrollbar-width: 0.7rem;
 @header-height: 5rem;
+@increased-shadow-clr: #00000099;
+@increased-shadow-blur: 0.65rem;
 
 :root {
     font-size: 12px;
@@ -50,6 +52,20 @@ button {
     font: unset;
     border: none;
     cursor: pointer;
+    color: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+    
+.label {
+    font-weight: 600;
+
+    &:after {
+        content: ': ';
+    }
 }
 
 /*----------------------COMMON PAGES STYLES----------------------*/
@@ -74,6 +90,16 @@ body {
 .content-element {
     background-color: var(--elements-background);
     box-shadow: 0 0 0.5rem #00000033;
+    
+
+    &.clickable {
+        transition: box-shadow 0.4s ease-in-out;
+        cursor: pointer;
+    
+        &:hover {
+            box-shadow: 0 0 @increased-shadow-blur @increased-shadow-clr;
+        }
+    }
 }
 
 header {
@@ -90,26 +116,31 @@ header {
             position: relative;
             top: 50%;
             transform: translateY(-50%);
+            
+            border: 1px solid transparent;
+            transition: border 0.5s ease-in-out;
+    
+            &:hover {
+                border-color: var(--text-clr);
+            }
         }
     }
     
-    h1 {
+    h1#main-title {
         font-weight: 600;
         display: inline-block;
+        cursor: pointer;
+        border-radius: 0.4em;
+        padding: 0 0.4rem;
+        user-select: none;
     }
 
     #dark-mode-switch {
+        border-radius: 1em;
         float: right;
         font-size: 1.2rem;
         font-weight: 600;
         color: var(--text-clr);
-        border: 1px solid transparent;
-        border-radius: 1em;
-        transition: border 0.5s ease-in-out;
-
-        &:hover {
-            border-color: var(--text-clr);
-        }
 
         &:focus {
             outline: none;
@@ -158,9 +189,16 @@ main {
     }
 }
 
+.substitute-content {
+    padding: 1rem;
+    font-size: 4rem;
+}
+
 /*----------------------LIST PAGE STYLES-------------------------*/
 
-main>.filter-container {
+/*-----------------------filter inputs---------------------------*/
+
+.filter-container {
     padding: 1rem 1rem;
     margin-top: 1rem;
 
@@ -175,12 +213,12 @@ main>.filter-container {
 
         &:focus, &:focus-within {
             outline: none;
-            box-shadow: 0 0 0.65rem #00000088;
+            box-shadow: 0 0 @increased-shadow-blur @increased-shadow-clr;
             /*border-color: @dark-gray;*/
         }
     }
 }
-    
+
 #country-name-input {
     min-width: 22rem;
     width: 30%;
@@ -270,42 +308,106 @@ main>.filter-container {
     }
 }
 
+/*---------------------------list-----------------------------*/
+
 ul#countries-list {
     display: flex;
     width: 100%;
     flex-flow: row wrap;
     align-items: baseline;
     /*justify-content: styled at media queryies*/
+
+    >.country-card {
+        width: 100%;
+        border-radius: 0.6rem;
+        margin: 1rem 1rem;
+        overflow: hidden;
+
+        >a {
+            display: block;
+            height: 100%;
+            width: 100%;
+
+            >img {
+                width: calc(100% + 1px); //fix of some flags being rendered 1px short on some resolutions
+                object-fit: contain;
+                object-position: top;
+                max-height: 18rem;
+                overflow: hidden;
+                box-shadow: 0 0 0.3rem #00000033;
+            }
+    
+            ul.country-card-data {
+                padding: 1rem;
+            }
+        }
+    }
 }
 
-li.country-card {
-    width: 100%;
-    border-radius: 0.6rem;
-    margin: 1rem 1rem;
-    overflow: hidden;
+/*----------------------------COUNTRY DETAIL------------------------------*/
 
-    &.last-row-non-first {
-        justify-self: start;
-        margin-left: 0;
+#country-detail {
+    font-size: 14px;
+
+    #detail-controls {
+        padding: 2em 0 3em;
+        width: 90%;
+    
+        .back-btn {
+            padding: 0.6em 2.1em;
+            border-radius: 0.3em;
+    
+            .just-arrow {
+                font-family: math;
+            }
+        }
     }
 
-    >img {
-        width: calc(100% + 1px); //fix of some flags being rendered 1px short on some resolutions
-        object-fit: contain;
-        object-position: top;
-        max-height: 18rem;
-        overflow: hidden;
-        box-shadow: 0 0 0.3rem #00000033;
-    }
+    >.detail-data {
+        >* {
+            width: 100%;
+            display: block;
+        }
 
-    ul.country-card-data {
-        padding: 1rem;
+        >img {
+            margin-bottom: 6em;
+            vertical-align: top;
+        }
 
-        span.label {
-            font-weight: 600;
+        dl {
+            line-height: 3rem;
 
-            &:after {
-                content: ': ';
+            >div {
+                margin: 3em 0;
+            }
+
+            dt, dd {
+                margin: 0;
+                display: inline;
+            }
+            dd:after {
+                content: "\a";
+                white-space: pre;
+            }
+
+            .data-borders {
+                dt {
+                    font-size: 1.1em;
+                    display: block;
+                    margin-bottom: 1em;
+                }
+
+                dd {
+                    li {
+                        display: inline-block;
+                        margin: 0.3em;
+
+                        button {
+                            padding: 0 1.3em;
+                            border-radius: 0.2em;
+                        }
+                    }
+                }
             }
         }
     }
@@ -329,7 +431,7 @@ li.country-card {
     }
 
     .width-container {
-        width:  100%;
+        width:  90%;
     }
 
     ul#countries-list {
@@ -381,6 +483,73 @@ li.country-card {
         
         &.last-row-non-first {
             margin-left: 0;
+        }
+    }
+    
+
+    #country-detail>.detail-data {
+        >* {
+            display: inline-block;
+        }
+
+        >img {
+            margin-bottom: 0;
+            width: 47%;
+        }
+
+        >#detail-data-list {
+            padding-left: 4em;
+            width: 53%;
+        }
+
+        h2 {
+            font-size: 2em;
+        }
+
+        dl {
+            line-height: 2.5rem;
+
+            >div {
+                display: inline-block;
+                margin: 0 0 3em 0;
+                vertical-align: top;
+
+                &.data-1 {
+                    margin-right: 7em;
+                }
+            }
+
+            dt, dd {
+                margin: 0;
+                display: inline;
+            }
+            dd:after {
+                content: "\a";
+                white-space: pre;
+            }
+
+            .data-borders {
+                dt {
+                    font-size: 1em;
+                    display: inline-block;
+                    margin: 0 1em 0 0;
+                }
+
+                dd {
+                    ul {
+                        display: inline;
+                    }
+
+                    li {
+                        margin: 0.3em;
+
+                        button {
+                            padding: 0 1.3em;
+                            border-radius: 0.2em;
+                        }
+                    }
+                }
+            }
         }
     }
 }

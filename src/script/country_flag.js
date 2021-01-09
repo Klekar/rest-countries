@@ -1,4 +1,4 @@
-class CountryCardFlag extends React.Component {
+class CountryFlag extends React.Component {
     constructor(props) {
         super(props);
     }
