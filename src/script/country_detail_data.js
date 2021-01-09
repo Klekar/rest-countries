@@ -48,7 +48,6 @@ class CountryDetailData extends React.Component {
             return <div className="substitute-content">Loading...</div>
         }
         else {
-            console.log(data);
             return (
                 <div className="detail-data">
                     <CountryFlag data={this.state.data}/>
