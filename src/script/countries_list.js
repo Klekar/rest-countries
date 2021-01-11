@@ -98,6 +98,7 @@ class CountriesList extends React.Component {
                         <input id="country-name-input"
                                className="content-element"
                                type="text"
+                               name="country-name-input"
                                onChange={this.handleNameInputChange.bind(this)}
                                placeholder="Search for a country..." />
                         <div id="region-select-holder" className="content-element">
@@ -114,9 +115,9 @@ class CountriesList extends React.Component {
                     </div>
                     <ul id="countries-list">
                         {r}
-                        <li class="list-filler country-card"></li>
-                        <li class="list-filler country-card"></li>
-                        <li class="list-filler country-card"></li>
+                        <li className="list-filler country-card"></li>
+                        <li className="list-filler country-card"></li>
+                        <li className="list-filler country-card"></li>
                     </ul>
                 </div>
             )
