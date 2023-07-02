@@ -12,8 +12,8 @@ class CountryDetailData extends React.Component {
         fetch(apiUrl + "name/" + this.props.name + "?" +
                 new URLSearchParams({
                     "fullText": true,
-                    "fields": "name;population;region;subregion;capital;flag;currencies"
-                            + ";languages;borders;nativeName;topLevelDomain"
+                    "fields": "name,population,region,subregion,capital,flag,currencies"
+                            + ",languages,borders,nativeName,topLevelDomain"
                 }))
             .then(res => res.json())
             .then(

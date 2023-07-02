@@ -16,7 +16,7 @@ class CountriesList extends React.Component {
     componentDidMount() {
         fetch(apiUrl + "all?" +
                 new URLSearchParams({
-                    "fields": "name;population;region;capital;flag"
+                    "fields": "name,population,region,capital,flag"
                 }))
             .then(res => res.json())
             .then(
