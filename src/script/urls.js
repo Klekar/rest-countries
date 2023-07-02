@@ -1,1 +1,1 @@
-exports.apiUrl = apiUrl = "https://restcountries.com/v2/"
+exports.apiUrl = "https://restcountries.com/v2/"
