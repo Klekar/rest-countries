@@ -1,3 +1,5 @@
+const { apiUrl } = require("./urls");
+
 class CountryDetailData extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +11,7 @@ class CountryDetailData extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://restcountries.eu/rest/v2/name/" + this.props.name + "?" +
+        fetch(apiUrl + "name/" + this.props.name + "?" +
                 new URLSearchParams({
                     "fullText": true,
                     "fields": "name;population;region;subregion;capital;flag;currencies"

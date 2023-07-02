@@ -1,3 +1,5 @@
+const { apiUrl } = require("./urls");
+
 class BorderList extends React.Component {
     constructor(props) {
         super(props);
@@ -9,7 +11,7 @@ class BorderList extends React.Component {
     }
 
     componentDidMount() {
-        fetch("https://restcountries.eu/rest/v2/alpha?fields=name&codes=" + this.props.borders)
+        fetch(apiUrl + "alpha?fields=name&codes=" + this.props.borders)
             .then(res => res.json())
             .then(
                 (result) => {
