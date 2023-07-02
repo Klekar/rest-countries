@@ -3,4 +3,4 @@ var ReactDOM = require('react-dom');
 var React = require('react');
 import Select from 'react-select';
 
-apiUrl = "https://restcountries.com/v2/"
+const apiUrl = "https://restcountries.com/v2/"
