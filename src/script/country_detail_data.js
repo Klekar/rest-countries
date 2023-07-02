@@ -38,7 +38,7 @@ class CountryDetailData extends React.Component {
         if (data.borders?.length) {
                         borders = <div className="data-borders">
                             <dt className="label">Border Countries</dt>
-                            <dd><BorderList borders={data.borders.join(";")}/></dd>
+                            <dd><BorderList borders={data.borders.join(",")}/></dd>
                         </div>
         }
         if (error) {
