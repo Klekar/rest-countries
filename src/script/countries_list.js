@@ -1,5 +1,3 @@
-const { apiUrl } = require("./urls");
-
 class CountriesList extends React.Component {
     constructor(props) {
         super(props);

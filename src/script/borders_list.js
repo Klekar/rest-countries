@@ -1,5 +1,3 @@
-const { apiUrl } = require("./urls");
-
 class BorderList extends React.Component {
     constructor(props) {
         super(props);

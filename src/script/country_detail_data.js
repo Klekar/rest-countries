@@ -1,5 +1,3 @@
-const { apiUrl } = require("./urls");
-
 class CountryDetailData extends React.Component {
     constructor(props) {
         super(props);
